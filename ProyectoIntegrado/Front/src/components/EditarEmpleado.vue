@@ -49,7 +49,7 @@ export default {
   },
   mounted () {
     this.idEmpleado = this.$route.params.id
-    console.log(this.idEmpleado)
+    console.log('idEmpleado recibido: '+this.idEmpleado)
     this.obetenerEmpleado(this.idEmpleado)
   },
   methods: {

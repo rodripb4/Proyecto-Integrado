@@ -2,6 +2,9 @@ const db = require('../config/db.config');
 const config = require('../config/config');
 const User = db.user;
 const Role = db.role;
+const Responsable = db.responsable
+const Solicitudes = db.soliictues
+const ItemsSolicitud = db.items_solicitud
  
 const Op = db.Sequelize.Op;
  
@@ -89,7 +92,39 @@ exports.userContent = (req, res) => {
     });
   })
 }
- 
+
+exports.getResponsables = (req, res) =>{
+  Responsable.findAll({
+    attributes:['idEmpleado','dniEmpleados','nombreEmpleado','codEmpleado','email','nombreDepartamento']
+  }).then(resp =>{    
+    res.status(200).json({
+      "resp":resp
+    })
+  })
+}
+
+exports.getSolicitudes = (req, res) =>{
+  Solicitudes.findAll({
+    attributes:['id_solicitud','fecha','nombreEmpleado','codigo_presupuestal']
+  }).then(sol=>{
+    res.status(200).json({
+      "sol":sol
+    })
+  })
+}
+
+exports.getItemsSolicitud = (req,res)=>{
+  let url_base = '/api/items_solicitud/'
+  let idSolicitud = req.url.replace(url_base,'')
+  ItemsSolicitud.findAll({
+    where:{id_solicitud:idSolicitud},
+    attributes:['idBienes','codTipoBien','nombre','unidadMedida','precioUnitario','id_solicitud','cantidad','tipoBien','precioTotal']
+  }).then(is => {
+    res.status(200).json({
+      "is":is
+    })
+  })
+ }
 exports.adminBoard = (req, res) => {
   User.findOne({
     where: {id: req.userId},

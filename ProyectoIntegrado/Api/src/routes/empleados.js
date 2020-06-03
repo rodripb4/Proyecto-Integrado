@@ -56,6 +56,10 @@ router.post('/empleados', (req, res)=>{
     })
 });
 
+/*//sequelize
+.query('CALL login (:email, :pwd, :device)', 
+{replacements: { email: "me@jsbot.io", pwd: 'pwd', device: 'android', }})
+.then(v=>console.log(v));*/
 router.put('/empleados/:idEmpleado', (req, res)=>{
     const{dniEmpleados, nombreEmpleado, idDepartamento, codEmpleado, cargoEmpleado} = req.body;
     var idEmpleado = req.params.idEmpleado

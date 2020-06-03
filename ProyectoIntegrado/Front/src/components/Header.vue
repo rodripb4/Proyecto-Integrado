@@ -13,7 +13,7 @@
         <a class="nav-link" href="#">Compras</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" role="button" @click="salir()">Sing Out</a>
+        <a class="nav-link" href="#" role="button" @click="salir()">Sign Out</a>
       </li>
     </ul>
   </div>

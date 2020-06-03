@@ -2,25 +2,21 @@
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
-
     <!-- Icon -->
     <div class="fadeIn first">
       <img src="../assets/logo.png" id="icon" alt="User Icon" />
 
     </div>
-
     <!-- Login Form -->
     <form>
       <input type="text" id="username" class="fadeIn second" name="username" placeholder="User Name" v-model="username">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" v-model="password">
       <input type="button" class="fadeIn fourth" value="Login" @click="login()">
     </form>
-
     <!-- Remind Passowrd -->
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
-
   </div>
 </div>
 </template>
@@ -46,7 +42,6 @@ export default {
   },
   methods: {
     login () {
-      console.log('hello world!!!')
       axios.post(this.url + 'api/auth/signin', {
         username: this.username,
         password: this.password
@@ -67,15 +62,15 @@ export default {
           })
         })
     },
-    role(token)
-    {
-          console.log('estamos en el role')
-          axios.get(this.url+'api/user',{headers:{'x-access-token':token}}).then((data)=>{
-            console.log(data.data.user.roles)
-            localStorage.setItem('role',data.data.user.roles[0].name)
-            this.$router.push('/empleados')
-          }).catch((error)=>{console.log(error)})
-
+    role(token) 
+    { 
+      console.log('estamos en el role')
+        axios.get(this.url + 'api/user', {headers: {'x-access-token': token}}).then((data)=> {
+        console.log(data.data.user.roles)
+        localStorage.setItem('role', data.data.user.roles[0].name)
+        this.$router.push('/empleados')
+      }).catch((error)=> { console.log(error) 
+      })
     }
   }
 }

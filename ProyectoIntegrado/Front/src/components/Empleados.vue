@@ -1,6 +1,6 @@
 <template>
 <div>
-<div width="100%">
+<div width=100%>
     <Header></Header>
     </div>
     <div>
@@ -40,7 +40,7 @@
                 <td>{{empleado.codEmpleado}}</td>
                 <td>{{empleado.email}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary" @click="editarEmpleado(idEmpleado)">Editar</button>
+                  <button type="button" class="btn btn-outline-primary" @click="editarEmpleado(empleado.idEmpleado)">Editar</button>
                 </td>
                 <td>
                    <button @click="eliminarEmpleado(empleado.idEmpleado)"  type="button" class="btn btn-outline-danger">Eliminar</button>
@@ -88,8 +88,9 @@ export default {
     },
     editarEmpleado (idEmpleado) {
       
-      console.log(this.empleado.idEmpleado)
-      this.router.push('editarempleado/' + idEmpleado)
+      //console.log(this.empleado.idEmpleado)
+      console.log(idEmpleado)
+      this.$router.push('editarempleado/' + idEmpleado)
     },
     eliminarEmpleado (idEmpleado) {
       console.log(idEmpleado)

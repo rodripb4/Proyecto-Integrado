@@ -8,4 +8,7 @@ module.exports = function(app) {
     app.get('/api/user', [authJwt.verifyToken], controller.userContent);
     app.get('/api/test/pm', [authJwt.verifyToken, authJwt.isPmOrAdmin], controller.managementBoard);
     app.get('/api/test/admin', [authJwt.verifyToken, authJwt.isAdmin], controller.adminBoard);
+    app.get('/api/responsables',/*[authJwt.verifyToken],*/ controller.getResponsables)
+    app.get('/api/solicitudes',/*[authJwt.verifyToken],*/controller.getSolicitudes)
+    app.get('/api/items_solicitud/:id_solicitud',controller.getItemsSolicitud)
 }    

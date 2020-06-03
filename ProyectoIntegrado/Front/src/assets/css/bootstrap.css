@@ -4327,6 +4327,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
+  width: 100%;
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -10231,7 +10232,7 @@ a.text-dark:hover, a.text-dark:focus {
 /*# sourceMappingURL=bootstrap.css.map */
 
 #content{
-  width: 90%;
+  width: 100%;
   float:left;
   margin-right: -50px;
   margin-left: 50px;
