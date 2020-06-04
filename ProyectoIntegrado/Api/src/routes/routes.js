@@ -10,5 +10,8 @@ module.exports = function(app) {
     app.get('/api/test/admin', [authJwt.verifyToken, authJwt.isAdmin], controller.adminBoard);
     app.get('/api/responsables',/*[authJwt.verifyToken],*/ controller.getResponsables)
     app.get('/api/solicitudes',/*[authJwt.verifyToken],*/controller.getSolicitudes)
-    app.get('/api/items_solicitud/:id_solicitud',controller.getItemsSolicitud)
+    app.get('/api/items_solicitud/:id_solicitud',/*[authJwt.verifyToken],*/controller.getItemsSolicitud)
+    app.post('/api/solicitud',controller.setSolicitud)
+    app.post('/api/items_solicitud',controller.setSolicitudItem)
+
 }    

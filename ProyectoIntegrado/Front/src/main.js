@@ -10,6 +10,7 @@ import ErrorComponent from '@/components/ErrorComponent.vue'
 import Empleados from '@/components/Empleados.vue'
 import CrearEmpleado from '@/components/CrearEmpleado.vue'
 import EditarEmpleado from '@/components/EditarEmpleado.vue'
+import Articulos from '@/components/Articulos.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuelidate)
@@ -24,6 +25,7 @@ const routes = [
   {path: '/empleados', component: Empleados, name: 'empleados'},
   {path: '/crearempleado', component: CrearEmpleado, name: 'crearempleado'},
   {path: '/editarempleado/:idEmpleado', component: EditarEmpleado, name: 'editarempleado'},
+  {path: '/articulos', component: Articulos, name: 'articulos'},
 
   // RUTAS GESTION
   {path: '*', component: ErrorComponent}

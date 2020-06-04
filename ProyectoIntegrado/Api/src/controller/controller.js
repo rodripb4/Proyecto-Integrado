@@ -5,8 +5,8 @@ const Role = db.role;
 const Responsable = db.responsable
 const Solicitudes = db.soliictues
 const ItemsSolicitud = db.items_solicitud
- 
 const Op = db.Sequelize.Op;
+const mySQLConn = require('../database')
  
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
@@ -101,6 +101,27 @@ exports.getResponsables = (req, res) =>{
       "resp":resp
     })
   })
+}
+
+exports.setSolicitud = (req, res)=>{
+  mySQLConn.query(' call CrearSolicitud(?,?)',[req.body.responsable, req.body.cod_presup],
+  (err, rows, fields)=>{
+    res.status(200).json({
+      "id_solicitud":rows[0][0]["crear_solicitud(p_id_responsable, p_cod_presup)"]
+    })    
+  }
+  )
+}
+
+exports.setSolicitudItem = (req, res) =>{
+  mySQLConn.query('call crear_item_solicitud(?,?,?)',[req.body.id_sol, req.body.id_bien, req.body.qnt],
+   (err, rows, fields)=>{
+     console.log(err)
+     console.log(fields)
+     res.status(200).json({
+       "rdo":rows
+     })
+   })
 }
 
 exports.getSolicitudes = (req, res) =>{

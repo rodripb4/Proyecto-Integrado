@@ -15,7 +15,7 @@ router.get('/empleados', (req, res) =>{
 });
 
 
-router.get('/empleados/:idEmpleado', (req, res)=>{
+router.get('/api/empleado/:idEmpleado', (req, res)=>{
     var idEmpleado = req.params.idEmpleado;
     console.log(idEmpleado);
     mysqlConnection.query('SELECT * FROM empleados WHERE idEmpleado = ?', [idEmpleado], (err, rows, fields) =>{
@@ -56,19 +56,23 @@ router.post('/empleados', (req, res)=>{
     })
 });
 
-/*//sequelize
-.query('CALL login (:email, :pwd, :device)', 
-{replacements: { email: "me@jsbot.io", pwd: 'pwd', device: 'android', }})
-.then(v=>console.log(v));*/
+
 router.put('/empleados/:idEmpleado', (req, res)=>{
-    const{dniEmpleados, nombreEmpleado, idDepartamento, codEmpleado, cargoEmpleado} = req.body;
+    var nombreEmpleado = req.body.nombreEmpleado
+    var idDepartamento = req.body.idDepartamento
+    var cargoEmpleado = req.body.cargoEmpleado
     var idEmpleado = req.params.idEmpleado
-    console.log(req.body);
+    var email = req.body.email
+    
     console.log(idEmpleado);
+    console.log(nombreEmpleado);
+    console.log(idDepartamento);
+    console.log(cargoEmpleado);
+    console.log(email)
     const query = `
-    CALL EditarEmpleado(?,?,?,?,?,?);
+    CALL EditarEmpleado(?,?,?,?,?);
     `;
-    mysqlConnection.query(query,[dniEmpleados, nombreEmpleado, idDepartamento, codEmpleado, cargoEmpleado, idEmpleado], (err, rows, fields)=>{
+    mysqlConnection.query(query,[nombreEmpleado, idDepartamento, cargoEmpleado, email, idEmpleado], (err, rows, fields)=>{
         if(!err){
             res.json({Status:'Empleado editado con exito!'});
         }else{

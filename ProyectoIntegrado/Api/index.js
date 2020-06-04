@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 //Rutas
 require('./src/routes/routes')(app);
 app.use(require('./src/routes/empleados'));
+app.use(require('./src/routes/articulos'));
 //Public 
 
 //Start server 

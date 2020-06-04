@@ -9964,6 +9964,12 @@ button.bg-dark:focus {
   .text-sm-center {
     text-align: center !important;
   }
+  #content{
+    width: 30%;
+    float:left;
+    margin-right: -50px;
+    margin-left: 50px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -10232,23 +10238,34 @@ a.text-dark:hover, a.text-dark:focus {
 /*# sourceMappingURL=bootstrap.css.map */
 
 #content{
-  width: 100%;
+  width: auto;
   float:left;
-  margin-right: -50px;
-  margin-left: 50px;
+  margin: auto;
+  padding: 40px;
 }
 
+.content{
+  width: 100%;
+  margin: auto;
+  padding: 10px;
+}
 
 .tabla-empleados{
-  width: 100%;
+  width: auto;
   border-bottom: 1px solid #eee;
   padding-bottom: 20px;
   padding-top: 20px;
   text-align: left;
+  margin: auto;
 }
 
 .center {
   margin: auto;
   width: 50%;
   padding: 10px;
+}
+
+.logo{
+  width: 60px;
+  height: 55px;
 }

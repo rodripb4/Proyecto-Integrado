@@ -1,7 +1,7 @@
 <template>
   <div class="general">
     <div class="center">
-      <section id="content">
+      <section class="content">
         <h2 class="margin">Añadir Empelado</h2>
         <form v-on:submit.prevent="save()">
           <div class="form-group">
@@ -14,7 +14,6 @@
           </div>
           <div class="form-group">
             <label for="departamento">Departamento</label>
-            <!--<input class="form-control" type="number" name="departamento" v-model="empleados.idDepartamento" />-->
             <select class="form-control" name="idDeperatamento" id="exampleFormControlSelect1" v-model="empleados.idDepartamento">
               <option value="1">Contabilidad</option>
               <option value="2">Compras</option>

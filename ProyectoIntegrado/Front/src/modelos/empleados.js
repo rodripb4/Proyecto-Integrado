@@ -1,5 +1,5 @@
 class Empleado {
-  constructor (id, dni, nombre, codDepartamento, departamento, codigo, cargo, email, password) {
+  constructor (id, dni, nombre, codDepartamento, departamento, codigo, cargo, email) {
     this.id = id
     this.nombre = nombre
     this.codDepartamento = codDepartamento
@@ -7,7 +7,6 @@ class Empleado {
     this.codigo = codigo
     this.email = email
     this.dni = dni
-    this.password = password
     this.cargo = cargo
   }
 }

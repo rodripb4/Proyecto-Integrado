@@ -87,8 +87,6 @@ export default {
       })
     },
     editarEmpleado (idEmpleado) {
-      
-      //console.log(this.empleado.idEmpleado)
       console.log(idEmpleado)
       this.$router.push('editarempleado/' + idEmpleado)
     },
