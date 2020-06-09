@@ -17,7 +17,7 @@
         <br>
         <div class="form-group">
         <label for="dni">Responsable</label>
-            <input class="form-control" type="text" name="nombre" v-model="resp_selec.nombreEmpleado" />
+            <input class="form-control" type="text" name="nombre" v-model="resp_selec.nombreEmpleado" readonly/>
           </div>
           <div class="form-group">
             <label for="dni">Codigo presupuestal</label>

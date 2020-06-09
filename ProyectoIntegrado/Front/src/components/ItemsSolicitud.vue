@@ -11,22 +11,22 @@
             <br>
           <div class="form-group">
             <label for="dni">Nombre</label>
-            <input class="form-control" type="text" name="nombre" v-model="art_select.nombre" />
+            <input class="form-control" type="text" name="nombre" v-model="art_select.nombre" readonly/>
           </div>
           <div class="form-group">
             <label for="departamento">Tipo Articulo</label>
-            <select class="form-control" name="tipoArticulo" id="exampleFormControlSelect1" v-model="art_select.codTipoBien">
+            <select class="form-control" name="tipoArticulo" id="exampleFormControlSelect1" v-model="art_select.codTipoBien" disabled>
               <option value="1">Suministro</option>
               <option value="2">Inmueble</option>
             </select>
           </div>
          <div class="form-group">
             <label for="cargo">Unidad Medida</label>
-            <input class="form-control" type="text" name="uM" v-model="art_select.unidadMedida" />
+            <input class="form-control" type="text" name="uM" v-model="art_select.unidadMedida" readonly/>
           </div>
           <div class="form-group">
             <label for="codigo">Precio Unitario</label>
-            <input class="form-control" type="number" name="pUni" v-model="art_select.precioUnitario" />
+            <input class="form-control" type="number" name="pUni" v-model="art_select.precioUnitario" readonly/>
           </div>
            <div class="form-group">
             <label for="codigo">Cantidad</label>
