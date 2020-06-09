@@ -1,0 +1,254 @@
+﻿Tabla Empleados
+
+
+CREATE TABLE `empleados` (
+  `idEmpleado` int NOT NULL AUTO_INCREMENT,
+  `dniEmpleados` varchar(9) NOT NULL,
+  `nombreEmpleado` varchar(100) NOT NULL,
+  `idDepartamento` int NOT NULL,
+  `codEmpleado` varchar(10) NOT NULL,
+  `cargoEmpleado` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  PRIMARY KEY (`idEmpleado`),
+  KEY `idDepartamento_idx` (`idDepartamento`),
+  CONSTRAINT `idDepartamento` FOREIGN KEY (`idDepartamento`) REFERENCES `departamentos` (`idDepartamentos`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8
+
+
+
+
+
+
+
+
+Tabla Departamentos
+
+
+CREATE TABLE `departamentos` (
+  `idDepartamentos` int NOT NULL,
+  `nombreDepartamento` varchar(45) NOT NULL,
+  PRIMARY KEY (`idDepartamentos`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+
+
+Tabla Bienes
+
+
+CREATE TABLE `bienes` (
+  `idBienes` int NOT NULL AUTO_INCREMENT,
+  `codTipoBien` int NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `unidadMedida` varchar(30) DEFAULT NULL,
+  `precioUnitario` float NOT NULL,
+  PRIMARY KEY (`idBienes`),
+  KEY `codTipoBien_idx` (`codTipoBien`),
+  CONSTRAINT `codTipoBien` FOREIGN KEY (`codTipoBien`) REFERENCES `codigobienes` (`codBienes`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
+
+
+
+
+
+
+CREATE TABLE `codigobienes` (
+  `codBienes` int NOT NULL,
+  `tipoBien` varchar(45) NOT NULL,
+  PRIMARY KEY (`codBienes`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+
+
+Tabla roles
+
+
+CREATE TABLE `roles` (
+  `id` int NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+Tabla solicitud bienes
+
+
+CREATE TABLE `solicitud_bienes` (
+  `id_solicitud` int NOT NULL,
+  `id_bienes` int NOT NULL,
+  `cantidad` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_solicitud`,`id_bienes`),
+  KEY `fk_bien_idx` (`id_bienes`),
+  CONSTRAINT `fk_bien` FOREIGN KEY (`id_bienes`) REFERENCES `bienes` (`idBienes`),
+  CONSTRAINT `fk_solic` FOREIGN KEY (`id_solicitud`) REFERENCES `solicitud_compra` (`id_solicitud`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+Tabla solicitud de compra
+
+
+CREATE TABLE `solicitud_compra` (
+  `id_solicitud` int NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `id_responsable` int NOT NULL,
+  `id_departamento` int NOT NULL,
+  `codigo_presupuestal` varchar(250) NOT NULL,
+  PRIMARY KEY (`id_solicitud`),
+  KEY `fk_empl_idx` (`id_responsable`),
+  KEY `fk_dpto_idx` (`id_departamento`),
+  CONSTRAINT `fk_dpto` FOREIGN KEY (`id_departamento`) REFERENCES `departamentos` (`idDepartamentos`),
+  CONSTRAINT `fk_empl` FOREIGN KEY (`id_responsable`) REFERENCES `empleados` (`idEmpleado`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
+
+
+
+Tabla usuario-roles
+
+
+CREATE TABLE `user_roles` (
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `roleId` int NOT NULL,
+  `userId` int NOT NULL,
+  PRIMARY KEY (`roleId`,`userId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+Tabla usuarios
+
+
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
+
+
+
+
+
+
+Vistas de la base de datos:
+
+
+-Vista de resposnables
+
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `responsables` AS select `emp`.`idEmpleado` AS `idEmpleado`,`emp`.`dniEmpleados` AS `dniEmpleados`,`emp`.`nombreEmpleado` AS `nombreEmpleado`,`emp`.`idDepartamento` AS `idDepartamento`,`emp`.`codEmpleado` AS `codEmpleado`,`emp`.`cargoEmpleado` AS `cargoEmpleado`,`emp`.`email` AS `email`,`dep`.`nombreDepartamento` AS `nombreDepartamento` from (`empleados` `emp` join `departamentos` `dep`) where ((`emp`.`cargoEmpleado` = 'Responsable') and (`emp`.`idDepartamento` = `dep`.`idDepartamentos`))
+
+
+-Vista de solicitudes de compra
+
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_solicitudes` AS select `slc`.`id_solicitud` AS `id_solicitud`,`slc`.`fecha` AS `fecha`,`emp`.`nombreEmpleado` AS `nombreEmpleado`,`slc`.`codigo_presupuestal` AS `codigo_presupuestal` from (`solicitud_compra` `slc` join `empleados` `emp`) where (`emp`.`idEmpleado` = `slc`.`id_responsable`)
+
+
+-Vista de solicitud de items
+
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_items_solicitud` AS select `bns`.`idBienes` AS `idBienes`,`bns`.`codTipoBien` AS `codTipoBien`,`bns`.`nombre` AS `nombre`,`bns`.`unidadMedida` AS `unidadMedida`,`bns`.`precioUnitario` AS `precioUnitario`,`slb`.`id_solicitud` AS `id_solicitud`,`slb`.`cantidad` AS `cantidad`,(select `cb`.`tipoBien` from `codigobienes` `cb` where (`cb`.`codBienes` = `bns`.`codTipoBien`)) AS `tipoBien`,(`bns`.`precioUnitario` * `slb`.`cantidad`) AS `precioTotal` from ((`solicitud_compra` `sol` join `solicitud_bienes` `slb`) join `bienes` `bns`) where ((`slb`.`id_solicitud` = `sol`.`id_solicitud`) and (`slb`.`id_bienes` = `bns`.`idBienes`))
+
+
+
+
+Funciones: 
+
+
+– Crea una solicitud de compra y devuelve el id de dicha solicitud. 
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `crear_solicitud`(p_id_responsable int, p_codigo_presup varchar(250)) RETURNS int
+    DETERMINISTIC
+BEGIN
+  declare vNumSolicitud int default 0;
+  -- Insertamos en la tabla de soliciutdes de compra.
+  insert into solicitud_compra(fecha, id_responsable, codigo_presupuestal)
+  values(now(), p_id_responsable, p_codigo_presup);
+  -- Buscamos y devolvemos el codigo de solicitud que nos ha asignado mySQL
+  Select max(id_solicitud)
+    into vNumSolicitud
+    from solicitud_compra;    
+  return vNumSolicitud;
+  
+
+
+RETURN 1;
+END
+
+
+
+
+
+
+     Procedimientos: 
+
+
+– Crea una inserción en la tabla solicitud_bienes. 
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CREAR_ITEM_SOLICITUD`(p_id_solicitud int, p_id_bien int, p_cantidad int)
+BEGIN
+INSERT INTO SOLICITUD_BIENES(ID_SOLICITUD, ID_BIENES, CANTIDAD)
+VALUES(P_ID_SOLICITUD, P_ID_BIEN, P_CANTIDAD);
+END
+
+
+-Editar la tabla empleados
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarEmpleado`( IN _nombreEmpleado varchar(100), in _idDepartamento INT, in _cargoEmpleado varchar(45), in _email varchar(45), IN _idEmpleado INT)
+BEGIN
+update empleados set nombreEmpleado = _nombreEmpleado,
+                     idDepartamento = _idDepartamento,
+                     cargoEmpleado = _cargoEmpleado,
+                     email = _email
+                     where idEmpleado = _idEmpleado;
+select _idEmpleado as idEmpleado;
+END
+
+
+-Procedimiento para usar la función de “crear_solicitud”
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearSolicitud`(p_id_responsable int, p_cod_presup varchar(250))
+BEGIN
+  Select crear_solicitud(p_id_responsable, p_cod_presup);
+END
+
+
+
+
+-Procedimiento para editar articulos
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarArticulo`( IN _codTipoBien INT, in _nombre varchar(50), in _unidadMedida varchar(30), in _precioUnitario float, IN _idBienes INT)
+BEGIN
+update bienes set codTipoBien = _codTipoBien,
+                                  nombre = _nombre,
+                                  unidadMedida = _unidadMedida,
+                                  precioUnitario = _precioUnitario
+                                  where idBienes = _idBienes;
+select _idBienes as idBienes;
+END
