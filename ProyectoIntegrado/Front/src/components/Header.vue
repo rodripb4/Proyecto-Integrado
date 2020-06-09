@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#"><img src="../assets/Logo.jpg" class="logo"/></a>
@@ -6,17 +7,17 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item" v-show="role == 'ADMIN'">
         <a class="nav-link" href="" role="button" @click="empleados()">Empleados<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Compras</a>
+      <li class="nav-item" v-show="role == 'USER' || role == 'ADMIN'">
+        <a class="nav-link" href="" role="button" @click="compras()">Compras</a>
       </li>
-       <li class="nav-item">
+       <li class="nav-item" v-show="role == 'ADMIN'">
         <a class="nav-link" href="" role="button" @click="articulos()">Articulos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" role="button" @click="salir()">Sign Out</a>
+        <a class="nav-link" href="" role="button" @click="salir()">Sign Out <i class="fa fa-sign-out" aria-hidden="true"></i></a>
       </li>
     </ul>
   </div>
@@ -25,17 +26,25 @@
 <script>
 export default {
   name: 'Header',
-  methods :{
-  salir(){
-    localStorage.clear()
-    this.$router.push('/')
+  data (){
+    return{
+      role: localStorage.getItem('role')
+    }
   },
-  articulos(){
-    this.$router.push('/articulos')
-  },
-  empleados(){
-    this.$router.push('/empleados')
+  methods: {
+    salir () {
+      localStorage.clear()
+      this.$router.push('/')
+    },
+    articulos () {
+      this.$router.push('/articulos')
+    },
+    empleados () {
+      this.$router.push('/empleados')
+    },
+    compras () {
+      this.$router.push('/compras')
+    }
   }
- }
 }
 </script>

@@ -26,10 +26,11 @@ exports.signup = (req, res) => {
     Role.findAll({
       where: {
       name: {
-        [Op.or]: JSON.parse(req.body.roles)
+        [Op.or]: req.body.roles
       }
       }
     }).then(roles => {
+      console.log("estoy en el then")
       user.setRoles(roles).then(() => {
         res.send("User registered successfully!");
             });
@@ -95,11 +96,21 @@ exports.userContent = (req, res) => {
 
 exports.getResponsables = (req, res) =>{
   Responsable.findAll({
-    attributes:['idEmpleado','dniEmpleados','nombreEmpleado','codEmpleado','email','nombreDepartamento']
+    attributes:['idEmpleado','dniEmpleados','nombreEmpleado','codEmpleado','email','nombreDepartamento', 'idDepartamento']
   }).then(resp =>{    
     res.status(200).json({
       "resp":resp
     })
+  })
+}
+
+exports.getLastSolicitud = (req, res) =>{
+  mySQLConn.query('select max(id_solicitud) as last_Id from v_solicitudes;', (err, rows, fields) =>{
+    if(!err){
+      res.json(rows);
+    }else{
+      console.log(err);
+  }
   })
 }
 
@@ -122,6 +133,30 @@ exports.setSolicitudItem = (req, res) =>{
        "rdo":rows
      })
    })
+}
+
+exports.getSolicitud = (req, res) =>{
+  var id_solicitud = req.params.id_solicitud;
+  console.log(id_solicitud);
+  mySQLConn.query('SELECT * FROM proyecto.solicitud_compra where id_solicitud = ?',[id_solicitud], (err, rows, fields) => {
+    if (!err) {
+      res.json(rows)
+    }else{
+      console.log(err)
+    }
+  })
+}
+
+exports.delSolicitud = (req, res) =>{
+  var id_solicitud = req.params.id_solicitud;
+  console.log(id_solicitud);
+  mySQLConn.query('Delete  from proyecto.solicitud_compra where id_solicitud = ?', [id_solicitud], (err, rows, fields) =>{
+    if(!err){
+      res.json({Status:'Solicitud eliminado con exito!'});
+    }else{
+      console.log(err);
+  }
+  })
 }
 
 exports.getSolicitudes = (req, res) =>{

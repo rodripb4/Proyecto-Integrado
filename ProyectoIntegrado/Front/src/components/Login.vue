@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
 <div class="wrapper fadeInDown">
   <div id="formContent">
@@ -5,7 +6,6 @@
     <!-- Icon -->
     <div class="fadeIn first">
       <img src="../assets/Logo.jpg" id="icon" alt="User Icon" />
-
     </div>
     <!-- Login Form -->
     <form>
@@ -13,9 +13,7 @@
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" v-model="password">
       <input type="button" class="fadeIn fourth" value="Login" @click="login()">
     </form>
-    <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
   </div>
 </div>
@@ -67,8 +65,8 @@ export default {
       axios.get(this.url + 'api/user', {headers: {'x-access-token': token}}).then((data) => {
         console.log(data.data.user.roles)
         localStorage.setItem('role', data.data.user.roles[0].name)
-        this.$router.push('/empleados')
-      }).catch((error) => { 
+        this.$router.push('/compras')
+      }).catch((error) => {
         console.log(error)
       })
     }

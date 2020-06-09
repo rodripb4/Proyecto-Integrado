@@ -1,6 +1,6 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
-const ROLEs = config.ROLEs; 
+const ROLES = config.ROLEs; 
 const User = db.user;
 const Role = db.role;
  
@@ -34,11 +34,12 @@ checkDuplicateUserNameOrEmail = (req, res, next) => {
   });
 }
  
-checkRolesExisted = (req, res, next) => {  
-  l_roles = JSON.parse(req.body.roles)
+checkRolesExisted = (req, res, next) => { 
+  console.log('estoy comprobando roles') 
+  l_roles = req.body.roles
   console.log(l_roles)
   for(let i=0; i<l_roles.length; i++){
-    if(!ROLEs.includes(l_roles[i].toUpperCase())){
+    if(!ROLES.includes(l_roles[i].toUpperCase())){
       res.status(400).send("Fail -> Does NOT exist Role = " + l_roles[i]);
       return;
     }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <section id="content">
     <h1 class="subheader">Página No encontrada</h1>

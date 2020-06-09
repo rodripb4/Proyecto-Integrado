@@ -6,25 +6,26 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'App',
   computed: {
-    route: function currentRouteName () {
+    /*route: function currentRouteName () {
       console.log(this.$route.name)
       return this.$route.name
-    }
+    }*/
   },
   mounted () {
-    this.verificartoken()
+    //this.verificartoken()
   },
   methods: {
-    verificartoken () {
+    /*verificartoken () {
       if (localStorage.getItem('user-token') === undefined || localStorage.getItem('user-token') === null) {
         console.log('No hay token')
       } else {
-        this.$route.push('/empleados')
+        this.$route.push('/')
       }
-    }
+    }*/
   }
 }
 </script>

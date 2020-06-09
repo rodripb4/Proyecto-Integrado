@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
 <div>
 <div width=100%>
@@ -7,12 +8,10 @@
     <section id="content">
         <br />
         <br />
-        <br />
-        <br />
         <h2 class="subheader">Empleados</h2>
         <br />
-        <div id="left">
-         <router-link to="/crearempleado" class="btn btn-success">Añadir Empleado</router-link>
+        <div>
+         <router-link to="/crearempleado" class="btn btn-success">Empleado  <i class="fa fa-user-plus"></i></router-link>
          </div>
         <br />
         <br />
@@ -40,10 +39,10 @@
                 <td>{{empleado.codEmpleado}}</td>
                 <td>{{empleado.email}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary" @click="editarEmpleado(empleado.idEmpleado)">Editar</button>
+                  <button type="button" class="btn btn-outline-primary" @click="editarEmpleado(empleado.idEmpleado)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 </td>
                 <td>
-                   <button @click="eliminarEmpleado(empleado.idEmpleado)"  type="button" class="btn btn-outline-danger">Eliminar</button>
+                   <button @click="eliminarEmpleado(empleado.idEmpleado)"  type="button" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -66,7 +65,7 @@ export default {
   },
   mounted () {
     let token = localStorage.getItem('user-token') || null
-    let role = localStorage.getItem('role')||null
+    let role = localStorage.getItem('role') || null
     if (token != null) this.obtenerEmpleados()
     else this.$router.push('/')
   },

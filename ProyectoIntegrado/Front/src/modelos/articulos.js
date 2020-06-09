@@ -1,11 +1,11 @@
 class Articulos {
-    constructor (id, codTipo, tipo, nombre, unidad_medida, precio_unitario) {
-      this.id = id
-      this.codTipo = codTipo
-      this.tipo = tipo
-      this.nombre = nombre
-      this.unidad_medida = unidad_medida
-      this.precio_unitario = precio_unitario
-    }
+  constructor (idBienes, codTipoBien, nombre, unidadMedida, precioUnitario, cantidad) {
+    this.idBienes = idBienes
+    this.codTipoBien = codTipoBien
+    this.nombre = nombre
+    this.unidadMedida = unidadMedida
+    this.precioUnitario = precioUnitario
+    this.cantidad = cantidad
   }
-  export default Articulos
+}
+export default Articulos

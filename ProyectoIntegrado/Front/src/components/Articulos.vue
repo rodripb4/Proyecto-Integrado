@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
 <div>
     <Header></Header>
@@ -8,7 +9,7 @@
         <h2 class="subheader">Articulos</h2>
         <br />
         <div id="left">
-         <router-link to="/crearempleado" class="btn btn-success">Añadir Articulo</router-link>
+         <router-link to="/creararticulo" class="btn btn-success">Articulo  <i class="fa fa-plus" aria-hidden="true"></i></router-link>
          </div>
         <br />
         <br />
@@ -32,10 +33,10 @@
                 <td>{{articulo.unidadMedida}}</td>
                 <td>{{articulo.precioUnitario}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary" @click="editarArticulo(articulo.idBienes)">Editar</button>
+                  <button type="button" class="btn btn-outline-primary" @click="editarArticulo(articulo.idBienes)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 </td>
                 <td>
-                   <button @click="eliminarArticulo(articulo.idBienes)"  type="button" class="btn btn-outline-danger">Eliminar</button>
+                   <button @click="eliminarArticulo(articulo.idBienes)"  type="button" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -58,7 +59,7 @@ export default {
   },
   mounted () {
     let token = localStorage.getItem('user-token') || null
-    let role = localStorage.getItem('role')||null
+    let role = localStorage.getItem('role') || null
     if (token != null) this.obtenerArticulos()
     else this.$router.push('/')
   },
@@ -80,16 +81,16 @@ export default {
     },
     editarArticulo (idBienes) {
       console.log(idBienes)
-      this.$router.push('editarempleado/' + idBienes)
+      this.$router.push('editararticulo/' + idBienes)
     },
     eliminarArticulo (idBienes) {
       console.log(idBienes)
-      axios.delete(this.url + 'api/delArticulo' + idBienes).then(res => {
+      axios.delete(this.url + 'api/delArticulo/' + idBienes).then(res => {
         console.log(res)
-        this.$router.push('/empleados')
+        this.$router.push('/articulos')
         swal(
-          'Empleado Eliminado',
-          'El empleado se ha borrado correctamente',
+          'Articulo Eliminado',
+          'El articulo se ha borrado correctamente',
           'success'
         )
       })

@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="general">
     <div class="center">
@@ -53,11 +54,10 @@ export default {
     return {
       url: global.url,
       empleado: new Empleado('', '', '', '', '', '', ''),
-      isEdit: true,
+      isEdit: true
     }
   },
   mounted () {
-    this.$route.params.idEmpleado
     console.log(this.$route.params.idEmpleado)
     this.obetenerEmpleado(this.$route.params.idEmpleado)
   },
@@ -68,9 +68,8 @@ export default {
       axios
         .put(this.url + 'empleados/' + idEmpleado, this.empleado[0])
         .then(res => {
-          console.log("estoy en el then")
           console.log(res.status)
-          if (res.status == 200) {
+          if (res.status === 200) {
             swal(
               'Edición finalizada',
               'El articulo se ha editado correctamente :)',
@@ -91,7 +90,7 @@ export default {
     },
     obetenerEmpleado (idEmpleado) {
       console.log('estoy obteniendo empleados')
-      axios.get(this.url + 'api/empleado/'+ idEmpleado).then(res => {
+      axios.get(this.url + 'api/empleado/' + idEmpleado).then(res => {
         if (res.status === 200) {
           this.empleado = res.data
           console.log(this.empleado[0])

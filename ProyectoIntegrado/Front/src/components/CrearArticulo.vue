@@ -1,8 +1,9 @@
+/* eslint-disable */
 <template>
   <div class="general">
     <div class="center">
       <section class="content">
-        <h2 class="margin">Añadir Articulo</h2>
+        <h2 class="margin">Crear Articulo</h2>
         <form v-on:submit.prevent="save()">
           <div class="form-group">
             <label for="dni">Nombre</label>
@@ -10,7 +11,7 @@
           </div>
           <div class="form-group">
             <label for="departamento">Tipo Articulo</label>
-            <select class="form-control" name="tipoArticulo" id="exampleFormControlSelect1" v-model="articulo.codTipo">
+            <select class="form-control" name="tipoArticulo" id="exampleFormControlSelect1" v-model="articulo.codTipoBien">
               <option value="1">Suministro</option>
               <option value="2">Inmueble</option>
             </select>
@@ -21,7 +22,7 @@
           </div>
           <div class="form-group">
             <label for="codigo">Precio Unitario</label>
-            <input class="form-control" type="number" name="pUni" v-model="articulo.precioUnitarioª" />
+            <input class="form-control" type="number" name="pUni" v-model="articulo.precioUnitario" />
           </div>
           <input type="submit" value="Guardar" class="btn btn-success" />
         </form>
@@ -41,7 +42,7 @@ export default {
   data () {
     return {
       url: global.url,
-      articulo: new Articulo('', '', '', '', '')
+      articulo: new Articulo('', '', '', '')
     }
   },
   mounted () {
@@ -49,6 +50,7 @@ export default {
   },
   methods: {
     save () {
+      console.log(this.articulo)
       return axios({
         method: 'POST',
         url: this.url + 'api/postArticulo',
@@ -56,9 +58,8 @@ export default {
       })
         .then(response => response.data)
         .then(data => {
-          console.log(data)
-          console.log(status)
-          if (data.status !== 'error') {
+          console.log(data.code)
+          if (data.code === 200) {
             swal(
               'Articulo creado',
               'el articulo se ha creado correctamente :)',

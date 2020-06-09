@@ -33,6 +33,7 @@ router.post('/api/postArticulo', (req, res)=>{
         "unidadMedida": req.body.unidadMedida,
         "precioUnitario": req.body.precioUnitario
     }
+    console.log(req.body.codTipoBien)
 
     mysqlConnection.query('INSERT INTO proyecto.bienes SET ?', articulo, function(err, rows, fields){
         if (err){
@@ -41,25 +42,26 @@ router.post('/api/postArticulo', (req, res)=>{
                 'failed': 'Error ocurred'
             })
         } else {
+            console.log("No hay error")
             res.send({
                 'code': 200,
-                'success': 'Empleado registrado correctamente!'
+                'success': 'Articulo registrado correctamente!'
             })
         }
     })
 });
 
 router.put('/api/editArticulo/:idBienes', (req, res)=>{
-    const{dniEmpleados, nombreEmpleado, idDepartamento, codEmpleado, cargoEmpleado} = req.body;
+    const{codTipoBien, nombre, unidadMedida, precioUnitario} = req.body;
     var idBienes = req.params.idBienes
     console.log(req.body);
     console.log(idBienes);
     const query = `
-    CALL EditarEmpleado(?,?,?,?,?,?);
+    CALL EditarArticulo(?,?,?,?,?);
     `;
-    mysqlConnection.query(query,[dniEmpleados, nombreEmpleado, idDepartamento, codEmpleado, cargoEmpleado, idEmpleado], (err, rows, fields)=>{
+    mysqlConnection.query(query,[codTipoBien, nombre, unidadMedida, precioUnitario, idBienes], (err, rows, fields)=>{
         if(!err){
-            res.json({Status:'Empleado editado con exito!'});
+            res.json({Status:'Articulo editado con exito!'});
         }else{
             console.log(err);
         }

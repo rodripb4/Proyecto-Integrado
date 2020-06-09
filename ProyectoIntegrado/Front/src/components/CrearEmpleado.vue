@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="general">
     <div class="center">

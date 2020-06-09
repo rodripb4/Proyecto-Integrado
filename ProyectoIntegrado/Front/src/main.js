@@ -11,6 +11,11 @@ import Empleados from '@/components/Empleados.vue'
 import CrearEmpleado from '@/components/CrearEmpleado.vue'
 import EditarEmpleado from '@/components/EditarEmpleado.vue'
 import Articulos from '@/components/Articulos.vue'
+import CrearArticulo from '@/components/CrearArticulo.vue'
+import EditarArticulo from '@/components/EditarArticulo.vue'
+import Compras from '@/components/Compras.vue'
+import CrearSolicitud from '@/components/CrearSolicitud.vue'
+import CrearOrden from '@/components/CrearOrden.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuelidate)
@@ -26,6 +31,11 @@ const routes = [
   {path: '/crearempleado', component: CrearEmpleado, name: 'crearempleado'},
   {path: '/editarempleado/:idEmpleado', component: EditarEmpleado, name: 'editarempleado'},
   {path: '/articulos', component: Articulos, name: 'articulos'},
+  {path: '/creararticulo', component: CrearArticulo, name: 'creararticulo'},
+  {path: '/editararticulo/:idBienes', component: EditarArticulo, name: 'editararticulo'},
+  {path: '/compras', component: Compras, name: 'compras'},
+  {path: '/crearsolicitud', component: CrearSolicitud, name: 'CrearSolicitud'},
+  {path: '/crearorden/:id_solicitud', component: CrearOrden, name: 'crearorden'},
 
   // RUTAS GESTION
   {path: '*', component: ErrorComponent}
