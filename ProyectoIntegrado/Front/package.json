@@ -14,7 +14,7 @@
     "axios": "^0.19.2",
     "boostrap": "^2.0.0",
     "core-js": "^3.6.5",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.3",
     "moment": "^2.25.3",
     "sweetalert": "^2.1.2",
